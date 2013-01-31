@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<environments>
+	<environment id="cluster-1">
+		<server host="host.cl1.1.dnb.com" />
+		<server host="host.cl1.2.dnb.com" />
+		<server host="host.cl1.3.dnb.com" />
+	</environment>
+	<environment id="cluster-2">
+		<server host="host.cl2.1.dnb.com" />
+		<server host="host.cl2.2.dnb.com" />
+	</environment>
+	<login username="aUserName" password="aPassword" />
+	<commands>
+		<command>tail -f /file-1.log</command>
+		<command>grep 'xception' /file-2.log</command>
+		<command>tail /file-3.log</command>
+		<command alias="tail log file" >tail /file.log</command>
+	</commands>
+</environments>
