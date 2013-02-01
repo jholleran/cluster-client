@@ -8,4 +8,6 @@ clients user interface. This application can be configured to any number of serv
 The client can connect to the server in two modes, Shell and SFTP mode. In Shell mode 
 the user can run any system commands. Is SFTP mode the user can navigate the file 
 system and download files from all the servers at once.
- 
+
+For more information on how to setup and run this application can be found on the wiki :
+https://github.com/jholleran/cluster-client/wiki
