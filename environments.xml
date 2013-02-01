@@ -8,6 +8,8 @@
 		<server host="localhost" />
 		<server host="127.0.0.1" />
 	</environment>
+	
+	<!-- Global username and password for all clusters -->
 	<login username="" password="" />
 	<commands>
 		<command></command>
