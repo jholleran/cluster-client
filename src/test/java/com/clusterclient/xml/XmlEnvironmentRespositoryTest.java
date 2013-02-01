@@ -26,9 +26,9 @@ public class XmlEnvironmentRespositoryTest {
 	public void testReadCluster1() {
 
 		List<String> hosts = environmentRepository.findHostsWithId("cluster-1");
-		assertThat(hosts, hasItem("host.cl1.1.dnb.com"));
-		assertThat(hosts, hasItem("host.cl1.2.dnb.com"));
-		assertThat(hosts, hasItem("host.cl1.3.dnb.com"));
+		assertThat(hosts, hasItem("host.cl1.1.com"));
+		assertThat(hosts, hasItem("host.cl1.2.com"));
+		assertThat(hosts, hasItem("host.cl1.3.com"));
 		assertThat("Should only contain 3 envs", hosts.size(), is(3));
 	}
 
@@ -36,8 +36,8 @@ public class XmlEnvironmentRespositoryTest {
 	public void testReadCluster2() {
 
 		List<String> hosts = environmentRepository.findHostsWithId("cluster-2");
-		assertThat(hosts, hasItem("host.cl2.1.dnb.com"));
-		assertThat(hosts, hasItem("host.cl2.2.dnb.com"));
+		assertThat(hosts, hasItem("host.cl2.1.com"));
+		assertThat(hosts, hasItem("host.cl2.2.com"));
 		assertThat("Should only contain 2 envs", hosts.size(), is(2));
 	}
 

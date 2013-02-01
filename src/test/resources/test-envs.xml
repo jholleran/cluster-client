@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <environments>
-	<environment id="cluster-1">
-		<server host="host.cl1.1.dnb.com" />
-		<server host="host.cl1.2.dnb.com" />
-		<server host="host.cl1.3.dnb.com" />
-	</environment>
-	<environment id="cluster-2">
-		<server host="host.cl2.1.dnb.com" />
-		<server host="host.cl2.2.dnb.com" />
-	</environment>
+	<cluster id="cluster-1">
+		<server host="host.cl1.1.com" />
+		<server host="host.cl1.2.com" />
+		<server host="host.cl1.3.com" />
+	</cluster>
+	<cluster id="cluster-2">
+		<server host="host.cl2.1.com" />
+		<server host="host.cl2.2.com" />
+	</cluster>
 	<login username="aUserName" password="aPassword" />
 	<commands>
 		<command>tail -f /file-1.log</command>

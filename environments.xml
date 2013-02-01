@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <environments>
-	<environment id="cluster-1">
+	<cluster id="cluster-1">
 		<server host="localhost" />
 		<server host="127.0.0.1" />
-	</environment>
-	<environment id="cluster-2">
+	</cluster>
+	<cluster id="cluster-2">
 		<server host="localhost" />
 		<server host="127.0.0.1" />
-	</environment>
+	</cluster>
 	
 	<!-- Global username and password for all clusters -->
 	<login username="" password="" />

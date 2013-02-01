@@ -50,7 +50,7 @@ public class XmlEnvironmentRepository implements EnvironmentRepository {
 
 	public List<String> findHostsWithId(String id) {
 		LOGGER.info("Find Hosts with id = " + id);
-		NodeList nl = dom.getElementsByTagName("environment");
+		NodeList nl = dom.getElementsByTagName("cluster");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
 				Element el = (Element) nl.item(i);
@@ -121,7 +121,7 @@ public class XmlEnvironmentRepository implements EnvironmentRepository {
 	public List<String> findAllEnvironments() {
 		LOGGER.info("Find all environments");
 		List<String> commands = new ArrayList<String>();
-		NodeList nl = dom.getElementsByTagName("environment");
+		NodeList nl = dom.getElementsByTagName("cluster");
 		if (nl != null && nl.getLength() > 0) {
 			for (int i = 0; i < nl.getLength(); i++) {
 
