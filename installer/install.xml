@@ -58,6 +58,7 @@
 			<file src="../cluster-client-1.0.jar" targetdir="$INSTALL_PATH" />
 			<file src="lib/jsch-0.1.49.jar" targetdir="$INSTALL_PATH/lib" />
 			<file src="run.bat" targetdir="$INSTALL_PATH" />
+			<file src="run.sh" targetdir="$INSTALL_PATH" />
 			<file src="Readme.txt" targetdir="$INSTALL_PATH" />
 			<file src="configuration.properties" targetdir="$INSTALL_PATH" />
 			<singlefile src="environments.xml" target="$INSTALL_PATH/environments.xml" override="false" />
