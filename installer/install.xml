@@ -10,13 +10,12 @@
 
 	<!-- The info section. The meaning of the tags should be natural ... -->
 	<info>
-		<appname>LogGrabberTool</appname>
+		<appname>ClusterClient</appname>
 		<appversion>1.0</appversion>
 		<authors>
-			<author name="Dublin DNBi Team" email="DNBiDublinDev@DNB.com" />
-			<author name="Jarlath Holleran" email="holleranj@dnb.com" />
+			<author name="Jarlath Holleran" email="jarlath.holleran@gmail.com" />
 		</authors>
-		<url>http://dbdlscmap01.uk.dnb.com:8085/display/dnbi/Log+Grabber+Documentation
+		<url>https://github.com/jholleran/cluster-client/wiki
 		</url>
 		<javaversion>1.6</javaversion>
 		<requiresjdk>no</requiresjdk>
@@ -56,8 +55,8 @@
 	<packs>
 		<pack name="Binaries" required="yes">
 			<description>The binarie files</description>
-			<file src="..\cluster-client-1.0.jar" targetdir="$INSTALL_PATH" />
-			<file src="lib\jsch-0.1.49.jar" targetdir="$INSTALL_PATH/lib" />
+			<file src="../cluster-client-1.0.jar" targetdir="$INSTALL_PATH" />
+			<file src="lib/jsch-0.1.49.jar" targetdir="$INSTALL_PATH/lib" />
 			<file src="run.bat" targetdir="$INSTALL_PATH" />
 			<file src="Readme.txt" targetdir="$INSTALL_PATH" />
 			<file src="configuration.properties" targetdir="$INSTALL_PATH" />
