@@ -12,7 +12,14 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- IzPack -->
+		<staging.dir>${project.build.directory}\staging</staging.dir>
+		<izpack.standalone.compiler.version>4.3.2</izpack.standalone.compiler.version>
+
 	</properties>
+
+
 	<build>
 		<plugins>
 			<!-- Compiler -->
@@ -33,6 +40,63 @@
 						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
 					</archive>
 				</configuration>
+			</plugin>
+
+			<!-- Used to configure IzPack installer -->
+			<plugin>
+				<groupId>org.codehaus.izpack</groupId>
+				<artifactId>izpack-maven-plugin</artifactId>
+				<version>1.0-alpha-5</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>izpack</goal>
+						</goals>
+						<configuration>
+							<izpackBasedir>${staging.dir}</izpackBasedir>
+							<installerFile>${project.build.directory}/${project.artifactId}-installer.jar</installerFile>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.izpack</groupId>
+						<artifactId>izpack-standalone-compiler</artifactId>
+						<version>${izpack.standalone.compiler.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<!-- copy other checked resource into staging area, expected by install.xml -->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>create-staging-area</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<copy todir="${staging.dir}">
+									<fileset dir="${basedir}/installer" />
+								</copy>
+								<copy todir="${staging.dir}/lib">
+									<fileset dir="${basedir}/lib" />
+								</copy>
+								<copy todir="${staging.dir}/src">
+									<fileset dir="${basedir}/src" />
+								</copy>
+								<copy file="configuration.properties" tofile="${staging.dir}/configuration.properties" />
+								<copy file="environments.xml" tofile="${staging.dir}/environments.xml" />
+								<mkdir dir="${staging.dir}/logs" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

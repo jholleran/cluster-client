@@ -4,6 +4,6 @@ Created-By: Apache Maven
 Built-By: HolleranJ
 Build-Jdk: 1.6.0_23
 Package: com.dnb.loggrabber
-Main-Class: com.dnb.loggrabber.Main
+Main-Class: com.clusterclient.Main
 Class-Path: lib/jsch-0.1.49.jar
 
