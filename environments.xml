@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<environments>
+	<environment id="cluster-1">
+		<server host="localhost" />
+		<server host="127.0.0.1" />
+	</environment>
+	<environment id="cluster-2">
+		<server host="localhost" />
+		<server host="127.0.0.1" />
+	</environment>
+	<login username="" password="" />
+	<commands>
+		<command></command>
+		<command>ls -ltr</command>
+		<command>tail -n 100 test/aLogFile.log</command>
+		<command alias="tail log file">tail -f test/aLogFile.txt</command>
+		<command alias="find exceptions">grep xception test/aLogFile.log</command>
+	</commands>
+</environments>
