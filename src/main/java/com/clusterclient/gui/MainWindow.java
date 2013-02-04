@@ -7,12 +7,15 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +23,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
@@ -93,14 +97,21 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 	
 	private JMenu viewMenu() {
 		JMenu viewMenu = new JMenu("View");
-		JMenuItem horizontal = new JMenuItem("Horizontal");
+		ButtonGroup group = new ButtonGroup();
+		
+		JMenuItem horizontal = new JRadioButtonMenuItem("Horizontal");
 		horizontal.addActionListener(new HorizontalActionListener());
 		
-		JMenuItem verticalItem = new JMenuItem("Vertical");
+		JMenuItem verticalItem = new JRadioButtonMenuItem("Vertical");
 		verticalItem.addActionListener(new VerticalActionListener());
+		verticalItem.setSelected(true);
 
-		JMenuItem gridItem = new JMenuItem("Grid");
+		JMenuItem gridItem = new JRadioButtonMenuItem("Grid");
 		gridItem.addActionListener(new GridActionListener());
+		
+		group.add(horizontal);
+		group.add(verticalItem);
+		group.add(gridItem);
 		
 		viewMenu.add(horizontal);
 		viewMenu.add(verticalItem);
