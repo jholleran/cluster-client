@@ -10,7 +10,7 @@
 
 	<!-- The info section. The meaning of the tags should be natural ... -->
 	<info>
-		<appname>ClusterClient</appname>
+		<appname>cluster-client</appname>
 		<appversion>1.0</appversion>
 		<authors>
 			<author name="Jarlath Holleran" email="jarlath.holleran@gmail.com" />
@@ -37,7 +37,7 @@
 	<!-- The resources section. The ids must be these ones if you want to use 
 		the LicencePanel and/or the InfoPanel. -->
 	<resources>
-		<res id="InfoPanel.info" src="Readme.txt" />
+		<res id="InfoPanel.info" src="README.md" />
 	</resources>
 
 	<!-- The panels section. We indicate here which panels we want to use. The 
@@ -59,7 +59,7 @@
 			<file src="lib/jsch-0.1.49.jar" targetdir="$INSTALL_PATH/lib" />
 			<file src="run.bat" targetdir="$INSTALL_PATH" />
 			<file src="run.sh" targetdir="$INSTALL_PATH" />
-			<file src="Readme.txt" targetdir="$INSTALL_PATH" />
+			<file src="README.md" targetdir="$INSTALL_PATH" />
 			<file src="configuration.properties" targetdir="$INSTALL_PATH" />
 			<singlefile src="environments.xml" target="$INSTALL_PATH/environments.xml" override="false" />
 			<file src="logs" targetdir="$INSTALL_PATH" override="false"/>

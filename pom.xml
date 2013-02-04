@@ -92,6 +92,7 @@
 								</copy>
 								<copy file="configuration.properties" tofile="${staging.dir}/configuration.properties" />
 								<copy file="environments.xml" tofile="${staging.dir}/environments.xml" />
+								<copy file="README.md" tofile="${staging.dir}/README.md" />
 								<mkdir dir="${staging.dir}/logs" />
 							</tasks>
 						</configuration>
