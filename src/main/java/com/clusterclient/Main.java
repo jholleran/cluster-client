@@ -8,7 +8,7 @@ import java.util.logging.SimpleFormatter;
 
 import javax.swing.UIManager;
 
-import com.clusterclient.gui.EnvRequestDialog;
+import com.clusterclient.gui.ClusterRequestDialog;
 import com.clusterclient.gui.MainWindow;
 import com.clusterclient.ssh.SSHCommandServiceFactory;
 import com.clusterclient.xml.XmlEnvironmentRepository;
@@ -62,7 +62,7 @@ public class Main implements ConnectListener {
 	}
 
 	private String requestEnvironment() {
-		EnvRequestDialog envRequest = new EnvRequestDialog(ui, repository);
+		ClusterRequestDialog envRequest = new ClusterRequestDialog(ui, repository);
 		return envRequest.getEnvironment();
 	}
 
