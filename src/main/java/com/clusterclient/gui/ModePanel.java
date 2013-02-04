@@ -2,8 +2,7 @@ package com.clusterclient.gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
@@ -50,4 +49,7 @@ public class ModePanel extends JPanel {
 	}
 	
 
+	public void changeLayout(LayoutManager manager) {
+		setLayout(manager);
+	}
 }

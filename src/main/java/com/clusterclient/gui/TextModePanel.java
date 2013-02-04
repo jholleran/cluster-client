@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -120,7 +121,7 @@ public class TextModePanel extends ModePanel implements MouseListener, KeyListen
 	
 	public void addHostPanel(TextHostPanel panel) {		
 		textHostPanels.add(panel);
-		content.add(panel, constraints());
+		content.add(panel);
 		panel.addMouseListener(this);
 		panel.addKeyListener(this);
 	}
@@ -134,16 +135,10 @@ public class TextModePanel extends ModePanel implements MouseListener, KeyListen
 	private void redraw() {
 		content.removeAll();
 		for (TextHostPanel panel : textHostPanels) {
-			content.add(panel, constraints());
+			content.add(panel);
 		}
 		parent.updateStatus("All views");
 		parent.validate();
-	}
-
-	private GridBagConstraints constraints() {
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		return c;
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -153,7 +148,7 @@ public class TextModePanel extends ModePanel implements MouseListener, KeyListen
 		if (textHostPanels.size() > 1) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
 				content.removeAll();
-				content.add(findHostPanel(e), constraints());
+				content.add(findHostPanel(e));
 				parent.updateStatus("ESC to Return");
 				parent.validate();
 			}
@@ -198,5 +193,10 @@ public class TextModePanel extends ModePanel implements MouseListener, KeyListen
 	
 	void enablePanels() {
 		enableControls();
+	}
+	
+	public void changeLayout(LayoutManager manager) {
+		content.setLayout(manager);
+		redraw();
 	}
 }

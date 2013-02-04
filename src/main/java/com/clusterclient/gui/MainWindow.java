@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -34,6 +35,7 @@ import com.clusterclient.FileStructureListener;
 import com.clusterclient.TextListener;
 
 public class MainWindow extends JFrame implements CommandListenerFactory {
+
 
 	private final Map<String, ModePanel> modePanels = new HashMap<String, ModePanel>();
 
@@ -71,6 +73,12 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 
 	private JMenuBar makeMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.add(fileMenu());
+		menuBar.add(viewMenu());
+		return menuBar;
+	}
+
+	private JMenu fileMenu() {
 		JMenu fileMenu = new JMenu("File");
 		JMenuItem connectItem = new JMenuItem("Connect");
 		connectItem.addActionListener(new ConnectActionListener());
@@ -80,8 +88,24 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 
 		fileMenu.add(connectItem);
 		fileMenu.add(saveItem);
-		menuBar.add(fileMenu);
-		return menuBar;
+		return fileMenu;
+	}
+	
+	private JMenu viewMenu() {
+		JMenu viewMenu = new JMenu("View");
+		JMenuItem horizontal = new JMenuItem("Horizontal");
+		horizontal.addActionListener(new HorizontalActionListener());
+		
+		JMenuItem verticalItem = new JMenuItem("Vertical");
+		verticalItem.addActionListener(new VerticalActionListener());
+
+		//JMenuItem gridItem = new JMenuItem("Grid");
+		//gridItem.addActionListener(new GridActionListener());
+		
+		viewMenu.add(horizontal);
+		viewMenu.add(verticalItem);
+		//viewMenu.add(gridItem);
+		return viewMenu;
 	}
 
 	private JPanel makeStatusBar() {
@@ -201,5 +225,38 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 		for(ModePanel modePanel : modePanels.values()) {
 			modePanel.disconnect();
 		}
+	}
+
+	public class GridActionListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			for(ModePanel modePanel : modePanels.values()) {
+				modePanel.changeLayout(new GridLayout(0, 3));
+			}
+		}
+		
+	}
+	
+	public class VerticalActionListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			for(ModePanel modePanel : modePanels.values()) {
+				modePanel.changeLayout(new GridLayout());
+			}
+		}
+		
+	}
+	
+	public class HorizontalActionListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			for(ModePanel modePanel : modePanels.values()) {
+				modePanel.changeLayout(new GridLayout(0, 1));
+			}
+		}
+		
 	}
 }
