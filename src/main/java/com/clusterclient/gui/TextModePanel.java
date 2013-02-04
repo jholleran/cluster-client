@@ -33,6 +33,7 @@ public class TextModePanel extends ModePanel implements MouseListener, KeyListen
 	private final JPanel content = new JPanel(new GridLayout());
 	
 	private final List<TextHostPanel> textHostPanels = new ArrayList<TextHostPanel>();
+	private LayoutManager layoutManager = new GridLayout();
 
 	public TextModePanel(MainWindow parent, EnvironmentRepository repository,
 			CommandService service) {
@@ -148,6 +149,7 @@ public class TextModePanel extends ModePanel implements MouseListener, KeyListen
 		if (textHostPanels.size() > 1) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
 				content.removeAll();
+				content.setLayout(new GridLayout());
 				content.add(findHostPanel(e));
 				parent.updateStatus("ESC to Return");
 				parent.validate();
@@ -178,6 +180,7 @@ public class TextModePanel extends ModePanel implements MouseListener, KeyListen
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			content.setLayout(layoutManager);
 			redraw();
 		}
 	}
@@ -196,6 +199,7 @@ public class TextModePanel extends ModePanel implements MouseListener, KeyListen
 	}
 	
 	public void changeLayout(LayoutManager manager) {
+		this.layoutManager  = manager;
 		content.setLayout(manager);
 		redraw();
 	}

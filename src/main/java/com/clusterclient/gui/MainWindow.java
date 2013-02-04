@@ -99,12 +99,12 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 		JMenuItem verticalItem = new JMenuItem("Vertical");
 		verticalItem.addActionListener(new VerticalActionListener());
 
-		//JMenuItem gridItem = new JMenuItem("Grid");
-		//gridItem.addActionListener(new GridActionListener());
+		JMenuItem gridItem = new JMenuItem("Grid");
+		gridItem.addActionListener(new GridActionListener());
 		
 		viewMenu.add(horizontal);
 		viewMenu.add(verticalItem);
-		//viewMenu.add(gridItem);
+		viewMenu.add(gridItem);
 		return viewMenu;
 	}
 
