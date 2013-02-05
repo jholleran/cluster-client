@@ -54,9 +54,9 @@
 	<!-- The packs section. We specify here our packs. -->
 	<packs>
 		<pack name="Binaries" required="yes">
-			<description>The binarie files</description>
-			<file src="../cluster-client-1.0.jar" targetdir="$INSTALL_PATH" />
-			<file src="lib/jsch-0.1.49.jar" targetdir="$INSTALL_PATH/lib" />
+			<description>The binary files</description>
+			<file src="cluster-client-1.0.jar" targetdir="$INSTALL_PATH" />
+			<file src="lib" targetdir="$INSTALL_PATH" />
 			<file src="run.bat" targetdir="$INSTALL_PATH" />
 			<file src="run.sh" targetdir="$INSTALL_PATH" />
 			<file src="README.md" targetdir="$INSTALL_PATH" />

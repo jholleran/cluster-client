@@ -34,13 +34,39 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${staging.dir}/lib</outputDirectory>
+							<includeScope>runtime</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<archive>
-						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+						<manifest>
+							<mainClass>com.clusterclient.Main</mainClass>
+							<packageName>com.clusterclient</packageName>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
 					</archive>
+					<outputDirectory>${staging.dir}</outputDirectory>
 				</configuration>
 			</plugin>
+
 
 			<!-- Used to configure IzPack installer -->
 			<plugin>
@@ -84,9 +110,6 @@
 								<copy todir="${staging.dir}">
 									<fileset dir="${basedir}/installer" />
 								</copy>
-								<copy todir="${staging.dir}/lib">
-									<fileset dir="${basedir}/lib" />
-								</copy>
 								<copy todir="${staging.dir}/src">
 									<fileset dir="${basedir}/src" />
 								</copy>
@@ -103,6 +126,16 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.49</version>
+		</dependency>
+		<dependency>
+			<groupId>org.swinglabs</groupId>
+			<artifactId>swingx</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
@@ -112,18 +145,13 @@
 			<groupId>org.jmock</groupId>
 			<artifactId>jmock-junit4</artifactId>
 			<version>2.5.1</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jmock</groupId>
 			<artifactId>jmock-legacy</artifactId>
 			<version>2.5.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jcraft</groupId>
-			<artifactId>jsch</artifactId>
-			<version>0.1.49</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/jsch-0.1.49.jar</systemPath>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

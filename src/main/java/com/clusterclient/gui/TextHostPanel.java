@@ -1,6 +1,7 @@
 package com.clusterclient.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,16 +10,18 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 import javax.swing.Action;
-import javax.swing.InputMap;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.Document;
+
+import org.jdesktop.swingx.JXEditorPane;
 
 import com.clusterclient.CommandProgressMonitor;
 import com.clusterclient.TextListener;
@@ -29,7 +32,7 @@ public class TextHostPanel extends JPanel implements TextListener {
 	private final int terminalBuffer;
 
 	private final JLabel label = new JLabel();
-	private final JTextArea textArea = new JTextArea();
+	private final JXEditorPane editor = new JXEditorPane();
 	private final JPopupMenu popupMenu = createPopup();
 
 	public TextHostPanel(String hostname, int terminalBuffer) {
@@ -38,7 +41,7 @@ public class TextHostPanel extends JPanel implements TextListener {
 		setLayout(new BorderLayout());
 		add(makeLabelPanel(), BorderLayout.NORTH);
 		makeTextArea();
-		add(scrollBar(textArea), BorderLayout.CENTER);
+		add(scrollBar(editor), BorderLayout.CENTER);
 	}
 
 	private JPanel makeLabelPanel() {
@@ -49,64 +52,59 @@ public class TextHostPanel extends JPanel implements TextListener {
 	}
 
 	private void makeTextArea() {
-		//InputMap inputMap = textArea.getInputMap();
-
-		// // Ctrl-f to go forward one character
-		// KeyStroke key = KeyStroke.getKeyStroke(KeyEvent.VK_F,
-		// Event.CTRL_MASK);
-		// inputMap.put(key, "crtl+f");
-		//
-		// textArea.getActionMap().put("crtl+f", new AbstractAction() {
-		// public void actionPerformed(ActionEvent e) {
-		// System.out.println("hello, world");
-		// }
-		// });
-
-		textArea.setEditable(false);
-		textArea.getDocument().addDocumentListener(
+		editor.setEditable(false);
+		editor.getDocument().addDocumentListener(
 				new LimitLinesDocumentListener(terminalBuffer));
-		textArea.addMouseListener(new PopupMouseListener());
+		editor.addMouseListener(new PopupMouseListener());
+
+		DefaultCaret caret = (DefaultCaret) editor.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	}
 
 	void clear() {
-		textArea.setText("");
+		editor.setText("");
 	}
 
-	private JScrollPane scrollBar(final JTextArea textArea) {
-		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		final JScrollPane scrollPane = new JScrollPane(textArea);
-		return scrollPane;
+	private JScrollPane scrollBar(final Component component) {
+		return new JScrollPane(component);
 	}
 
 	public void addMouseListener(MouseListener listener) {
 		super.addMouseListener(listener);
-		textArea.addMouseListener(listener);
+		editor.addMouseListener(listener);
 		label.addMouseListener(listener);
 	}
 
 	public void addKeyListener(KeyListener listener) {
 		super.addKeyListener(listener);
-		textArea.addKeyListener(listener);
+		editor.addKeyListener(listener);
 		label.addKeyListener(listener);
 	}
 
 	public boolean contains(Object source) {
-		return source == textArea || source == label || source == this;
+		return source == editor || source == label || source == this;
 	}
 
 	public void print(String output) {
-		textArea.append(output);
-		textArea.setCaretPosition(textArea.getDocument().getLength());
+		Document doc = editor.getDocument();
+        if (doc != null) {
+            try {
+                doc.insertString(doc.getLength(), output, null);
+            } catch (BadLocationException e) {
+            }
+        }
+		editor.setCaretPosition(editor.getDocument().getLength());
 	}
 
 	@Override
 	public void error(String message, Throwable t) {
-		textArea.append("\n********* [Log Grabber Tool] ***********\n");
-		textArea.append(message + "\n");
-		textArea.append(t.getMessage() + "\n");
-		textArea.append("Please check logs for more information\n");
-		textArea.append("****************************************\n");
+		StringBuilder builder = new StringBuilder();
+		builder.append("\n********* [Log Grabber Tool] ***********\n");
+		builder.append(message + "\n");
+		builder.append(t.getMessage() + "\n");
+		builder.append("Please check logs for more information\n");
+		builder.append("****************************************\n");
+		print(builder.toString());
 	}
 
 	public void finished() {
@@ -117,7 +115,7 @@ public class TextHostPanel extends JPanel implements TextListener {
 		try {
 			PrintWriter printWriter = new PrintWriter(fileName + "-" + hostName
 					+ ".log");
-			printWriter.write(textArea.getText());
+			printWriter.write(editor.getText());
 			printWriter.flush();
 			printWriter.close();
 		} catch (FileNotFoundException e) {
@@ -132,7 +130,7 @@ public class TextHostPanel extends JPanel implements TextListener {
 
 	private JPopupMenu createPopup() {
 		JPopupMenu popupMenu = new JPopupMenu();
-		Action copyAction = textArea.getActionMap().get(DefaultEditorKit.copyAction);
+		Action copyAction = editor.getActionMap().get(DefaultEditorKit.copyAction);
 		JMenuItem copyMenuItem = new JMenuItem(copyAction);
 		copyMenuItem.setText("Copy");
 		popupMenu.add(copyMenuItem);
@@ -144,7 +142,7 @@ public class TextHostPanel extends JPanel implements TextListener {
 		@Override
 		public void mouseReleased(MouseEvent evt) {
 			if (evt.isPopupTrigger() && SwingUtilities.isRightMouseButton(evt)) {
-				popupMenu.show(textArea, evt.getX(), evt.getY());
+				popupMenu.show(editor, evt.getX(), evt.getY());
 			}
 		}
 	}

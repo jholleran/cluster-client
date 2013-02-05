@@ -7,10 +7,14 @@
 	<cluster id="cluster-2">
 		<server host="localhost" />
 		<server host="127.0.0.1" />
+		<server host="localhost" />
+		<server host="127.0.0.1" />
+		<server host="localhost" />
+		<server host="127.0.0.1" />
 	</cluster>
-	
+
 	<!-- Global username and password for all clusters -->
-	<login username="" password="" />
+	<login username="HolleranJ" password="jholleran$03" />
 	<commands>
 		<command></command>
 		<command>ls -ltr</command>

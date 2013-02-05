@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Archiver-Version: Plexus Archiver
-Created-By: Apache Maven
-Built-By: HolleranJ
-Build-Jdk: 1.6.0_23
-Package: com.dnb.loggrabber
-Main-Class: com.clusterclient.Main
-Class-Path: lib/jsch-0.1.49.jar
-
