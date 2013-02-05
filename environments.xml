@@ -14,7 +14,7 @@
 	</cluster>
 
 	<!-- Global username and password for all clusters -->
-	<login username="HolleranJ" password="jholleran$03" />
+	<login username="" password="" />
 	<commands>
 		<command></command>
 		<command>ls -ltr</command>
