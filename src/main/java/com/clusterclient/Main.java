@@ -87,7 +87,7 @@ public class Main implements ConnectListener {
 			FileHandler handler = new FileHandler("logs/log-grabber.log",
 					100000, 5, true);
 			handler.setFormatter(new SimpleFormatter());
-			Logger logger = Logger.getLogger("com.dnb.loggrabber");
+			Logger logger = Logger.getLogger("com.clusterclient");
 			logger.addHandler(handler);
 			logger.setUseParentHandlers(false);
 			logger.setLevel(Level.ALL);
