@@ -1,6 +1,7 @@
 package com.clusterclient.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -19,9 +20,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Document;
 
 import org.jdesktop.swingx.JXEditorPane;
+import org.jdesktop.swingx.decorator.HighlighterFactory;
 
 import com.clusterclient.CommandProgressMonitor;
 import com.clusterclient.TextListener;
@@ -59,6 +62,16 @@ public class TextHostPanel extends JPanel implements TextListener {
 
 		DefaultCaret caret = (DefaultCaret) editor.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		
+//		DefaultHighlighter.DefaultHighlightPainter highlightPainter = 
+//		        new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+//		try {
+//			editor.getHighlighter().addHighlight(0, 1, 
+//			            highlightPainter);
+//		} catch (BadLocationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	void clear() {

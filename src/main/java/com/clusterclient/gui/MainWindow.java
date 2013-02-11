@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -40,11 +42,10 @@ import com.clusterclient.TextListener;
 
 public class MainWindow extends JFrame implements CommandListenerFactory {
 
-
 	private final Map<String, ModePanel> modePanels = new HashMap<String, ModePanel>();
 
 	private final ConnectListener connectListener;
-	
+
 	private final JTabbedPane tabbedPane = new JTabbedPane();
 	private final JLabel statusLabel = new JLabel("Connecting...");
 
@@ -63,16 +64,22 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 
 		setTitle("Cluster Client");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setupIcon();
 
 		setJMenuBar(makeMenuBar());
 		fillContentPane(mainContent(), makeStatusBar());
 
 		addShutdownListener();
-		
+
 		setPreferredSize(new Dimension(1200, 600));
-		pack();		
+		pack();
 		setVisible(true);
-		
+
+	}
+
+	private void setupIcon() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				getClass().getResource("/icon.gif")));
 	}
 
 	private JMenuBar makeMenuBar() {
@@ -86,7 +93,7 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 		JMenu fileMenu = new JMenu("File");
 		JMenuItem connectItem = new JMenuItem("Connect");
 		connectItem.addActionListener(new ConnectActionListener());
-		
+
 		JMenuItem saveItem = new JMenuItem("Save As...");
 		saveItem.addActionListener(new SaveAsActionListener());
 
@@ -94,25 +101,25 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 		fileMenu.add(saveItem);
 		return fileMenu;
 	}
-	
+
 	private JMenu viewMenu() {
 		JMenu viewMenu = new JMenu("View");
 		ButtonGroup group = new ButtonGroup();
-		
+
 		JMenuItem horizontal = new JRadioButtonMenuItem("Horizontal");
 		horizontal.addActionListener(new HorizontalActionListener());
-		
+
 		JMenuItem verticalItem = new JRadioButtonMenuItem("Vertical");
 		verticalItem.addActionListener(new VerticalActionListener());
 		verticalItem.setSelected(true);
 
 		JMenuItem gridItem = new JRadioButtonMenuItem("Grid");
 		gridItem.addActionListener(new GridActionListener());
-		
+
 		group.add(horizontal);
 		group.add(verticalItem);
 		group.add(gridItem);
-		
+
 		viewMenu.add(horizontal);
 		viewMenu.add(verticalItem);
 		viewMenu.add(gridItem);
@@ -143,10 +150,10 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				int selectedIndex = tabbedPane.getSelectedIndex();
-				//System.out.println(selectedIndex);
-				if(selectedIndex != -1) {
+				// System.out.println(selectedIndex);
+				if (selectedIndex != -1) {
 					mode = tabbedPane.getTitleAt(selectedIndex);
-					modePanels.get(mode).connect();					
+					modePanels.get(mode).connect();
 				}
 			}
 		});
@@ -157,11 +164,10 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 			String mode) {
 		TextHostPanel hostPanel = new TextHostPanel(host,
 				configurations.getTerminalBuffer());
-		
+
 		ModePanel modePanel = modePanels.get(mode);
 		if (modePanel == null) {
-			modePanel = new TextModePanel(this, repository,
-					service);
+			modePanel = new TextModePanel(this, repository, service);
 			modePanel.addHostPanel(hostPanel);
 			addModePanel(mode, modePanel);
 		} else {
@@ -176,7 +182,7 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 			CommandService service, String host, String mode) {
 		FileNavigationHostPanel hostPanel = new FileNavigationHostPanel(host,
 				service);
-		
+
 		ModePanel modePanel = modePanels.get(mode);
 		if (modePanel == null) {
 			modePanel = new ModePanel(service);
@@ -212,7 +218,7 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 			}
 		}
 	}
-	
+
 	private final class ConnectActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			disconnectAll();
@@ -233,41 +239,41 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 	}
 
 	private void disconnectAll() {
-		for(ModePanel modePanel : modePanels.values()) {
+		for (ModePanel modePanel : modePanels.values()) {
 			modePanel.disconnect();
 		}
 	}
 
 	public class GridActionListener implements ActionListener {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			for(ModePanel modePanel : modePanels.values()) {
+			for (ModePanel modePanel : modePanels.values()) {
 				modePanel.changeLayout(new GridLayout(0, 3));
 			}
 		}
-		
+
 	}
-	
+
 	public class VerticalActionListener implements ActionListener {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			for(ModePanel modePanel : modePanels.values()) {
+			for (ModePanel modePanel : modePanels.values()) {
 				modePanel.changeLayout(new GridLayout());
 			}
 		}
-		
+
 	}
-	
+
 	public class HorizontalActionListener implements ActionListener {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			for(ModePanel modePanel : modePanels.values()) {
+			for (ModePanel modePanel : modePanels.values()) {
 				modePanel.changeLayout(new GridLayout(0, 1));
 			}
 		}
-		
+
 	}
 }
