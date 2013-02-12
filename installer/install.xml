@@ -2,11 +2,11 @@
 
 <!-- A sample installation file. Use it as a base for your own installers 
 	:-) To compile it : - go in the bin directory where you installed IzPack 
-	- call "compile ../sample/install.xml -b ../sample" 
-	
-	C:\Program Files (x86)\IzPack\bin\compile install.xml -b . -o log-grabber-installer.jar -k standard -->
+	- call "compile ../sample/install.xml -b ../sample" C:\Program Files (x86)\IzPack\bin\compile 
+	install.xml -b . -o log-grabber-installer.jar -k standard -->
 
 <installation version="1.0">
+
 
 	<!-- The info section. The meaning of the tags should be natural ... -->
 	<info>
@@ -25,6 +25,9 @@
 	<!-- The gui preferences indication. Sets the installer window to 640x480. 
 		It will not be able to change the size. -->
 	<guiprefs width="640" height="480" resizable="yes" />
+	<variables>
+		<variable name="DesktopShortcutCheckboxEnabled" value="true" />
+	</variables>
 
 	<!-- The locale section. Asks here to include the English and French langpacks. -->
 	<locale>
@@ -34,11 +37,15 @@
 		<langpack iso3="por" />
 	</locale>
 
+	<!-- Required for Windows only) -->
+
 	<!-- The resources section. The ids must be these ones if you want to use 
 		the LicencePanel and/or the InfoPanel. -->
 	<resources>
+		<res src="shortcutSpec.xml" id="shortcutSpec.xml" />
 		<res id="InfoPanel.info" src="README.md" />
 	</resources>
+
 
 	<!-- The panels section. We indicate here which panels we want to use. The 
 		order will be respected. -->
@@ -48,8 +55,11 @@
 		<panel classname="TargetPanel" />
 		<panel classname="PacksPanel" />
 		<panel classname="InstallPanel" />
+		<panel classname="ShortcutPanel" />
 		<panel classname="FinishPanel" />
 	</panels>
+
+
 
 	<!-- The packs section. We specify here our packs. -->
 	<packs>
@@ -61,8 +71,9 @@
 			<file src="run.sh" targetdir="$INSTALL_PATH" />
 			<file src="README.md" targetdir="$INSTALL_PATH" />
 			<file src="configuration.properties" targetdir="$INSTALL_PATH" />
-			<singlefile src="environments.xml" target="$INSTALL_PATH/environments.xml" override="false" />
-			<file src="logs" targetdir="$INSTALL_PATH" override="false"/>
+			<singlefile src="environments.xml" target="$INSTALL_PATH/environments.xml"
+				override="false" />
+			<file src="logs" targetdir="$INSTALL_PATH" override="false" />
 		</pack>
 		<pack name="Source" required="no">
 			<description>The source files</description>
@@ -70,4 +81,11 @@
 		</pack>
 	</packs>
 
+
+
+	<native type="izpack" name="ShellLink.dll" />
+	<native type="izpack" name="ShellLink_x64.dll" />
+	<native type="3rdparty" name="COIOSHelper.dll" stage="both">
+		<os family="windows" />
+	</native>
 </installation>

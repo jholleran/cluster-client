@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+
+<shortcuts>
+
+
+    <skipIfNotSupported/>
+
+    <programGroup defaultName="Cluster Client" location="applications"/>
+
+      <shortcut
+        name="cluster-client"
+        programGroup="yes"
+        desktop="yes"
+        applications="no"
+        startMenu="yes"
+        startup="no"
+        target="$INSTALL_PATH/run.bat"
+        workingDirectory="$INSTALL_PATH"
+        commandLine=""
+        description="Cluster Client App"
+        iconFile="$INSTALL_PATH\src\main\resources\cc.ico"
+        iconIndex="0"
+        initialState="noShow">
+
+         <createForPack name="Binaries"/>
+
+       </shortcut>
+
+</shortcuts>
