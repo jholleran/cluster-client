@@ -1,11 +1,9 @@
 package com.clusterclient.gui;
 
+import com.clusterclient.RemoteFile;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
-
-import com.clusterclient.RemoteFile;
 
 public class FileTableModel extends AbstractTableModel {
 
