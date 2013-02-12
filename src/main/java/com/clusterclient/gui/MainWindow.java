@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +51,8 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 	private final Configurations configurations;
 
 	private String mode = "";
+	
+	private LayoutManager layoutOfModePanel = new GridLayout();
 
 	public MainWindow(EnvironmentRepository repository,
 			Configurations configurations, ConnectListener connectListener) {
@@ -165,11 +168,11 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 		ModePanel modePanel = modePanels.get(mode);
 		if (modePanel == null) {
 			modePanel = new TextModePanel(this, repository, service);
-			modePanel.addHostPanel(hostPanel);
+			modePanel.changeLayout(layoutOfModePanel);
 			addModePanel(mode, modePanel);
-		} else {
 			modePanel.addHostPanel(hostPanel);
-		}
+		} 
+		modePanel.addHostPanel(hostPanel);
 		repaint();
 		return hostPanel;
 	}
@@ -183,11 +186,10 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 		ModePanel modePanel = modePanels.get(mode);
 		if (modePanel == null) {
 			modePanel = new ModePanel(service);
-			modePanel.addHostPanel(hostPanel);
+			modePanel.changeLayout(layoutOfModePanel);
 			addModePanel(mode, modePanel);
-		} else {
-			modePanel.addHostPanel(hostPanel);
-		}
+		} 
+		modePanel.addHostPanel(hostPanel);
 		repaint();
 		return hostPanel;
 	}
@@ -245,8 +247,9 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			layoutOfModePanel = new GridLayout(0, 3);
 			for (ModePanel modePanel : modePanels.values()) {
-				modePanel.changeLayout(new GridLayout(0, 3));
+				modePanel.changeLayout(layoutOfModePanel);
 			}
 		}
 
@@ -256,8 +259,9 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			layoutOfModePanel = new GridLayout();
 			for (ModePanel modePanel : modePanels.values()) {
-				modePanel.changeLayout(new GridLayout());
+				modePanel.changeLayout(layoutOfModePanel);
 			}
 		}
 
@@ -267,8 +271,9 @@ public class MainWindow extends JFrame implements CommandListenerFactory {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			layoutOfModePanel = new GridLayout(0, 1);
 			for (ModePanel modePanel : modePanels.values()) {
-				modePanel.changeLayout(new GridLayout(0, 1));
+				modePanel.changeLayout(layoutOfModePanel);
 			}
 		}
 
