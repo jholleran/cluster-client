@@ -40,18 +40,25 @@ public class ClusterRequestDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        configPanel = new javax.swing.JPanel();
         label = new javax.swing.JLabel();
         envComboBox = new javax.swing.JComboBox();
+        controlsPanel = new javax.swing.JPanel();
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Server Cluster");
         setModal(true);
+        getContentPane().setLayout(new java.awt.GridLayout(2, 1));
 
         label.setText("Please select Cluster:");
+        configPanel.add(label);
 
         envComboBox.setModel(new DefaultComboBoxModel(environmentRepository.findAllEnvironments().toArray()));
+        configPanel.add(envComboBox);
+
+        getContentPane().add(configPanel);
 
         okButton.setText("Ok");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -59,6 +66,7 @@ public class ClusterRequestDialog extends javax.swing.JDialog {
                 okButtonPressed(evt);
             }
         });
+        controlsPanel.add(okButton);
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -66,38 +74,9 @@ public class ClusterRequestDialog extends javax.swing.JDialog {
                 cancelButtonPressed(evt);
             }
         });
+        controlsPanel.add(cancelButton);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(envComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(98, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(okButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelButton)
-                        .addGap(68, 68, 68))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(envComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(okButton)
-                    .addComponent(cancelButton))
-                .addContainerGap())
-        );
+        getContentPane().add(controlsPanel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -113,6 +92,8 @@ public class ClusterRequestDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JPanel configPanel;
+    private javax.swing.JPanel controlsPanel;
     private javax.swing.JComboBox envComboBox;
     private javax.swing.JLabel label;
     private javax.swing.JButton okButton;
