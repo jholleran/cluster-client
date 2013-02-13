@@ -8,7 +8,7 @@ import java.util.logging.SimpleFormatter;
 
 import javax.swing.UIManager;
 
-import com.clusterclient.gui.ClusterRequestDialog;
+import com.clusterclient.ui.ClusterRequestDialog;
 import com.clusterclient.gui.MainWindow;
 import com.clusterclient.ssh.SSHCommandServiceFactory;
 import com.clusterclient.xml.XmlEnvironmentRepository;
